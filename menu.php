@@ -7,13 +7,12 @@ if (isset($_GET['menu'])) {
 
 <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
     <script type="text/javascript">
-        try {
-            ace.settings.loadState('sidebar')
-        } catch (e) {
-        }
+    try {
+        ace.settings.loadState('sidebar')
+    } catch (e) {}
     </script>
     <ul class="nav nav-list">
-        <li <?php echo ($menu_active == '') ? "class='active'" : ""; ?> >
+        <li <?php echo ($menu_active == '') ? "class='active'" : ""; ?>>
             <a href="index.php">
                 <i class="menu-icon fa fa-home"></i>
                 <span class="menu-text"> Halaman Utama </span>
@@ -21,7 +20,7 @@ if (isset($_GET['menu'])) {
             <b class="arrow"></b>
         </li>
 
-        <li <?php echo ($menu_active == 'data_transaksi') ? "class='active'" : ""; ?> >
+        <li <?php echo ($menu_active == 'data_transaksi') ? "class='active'" : ""; ?>>
             <a href="index.php?menu=data_transaksi">
                 <i class="menu-icon fa fa-table"></i>
                 <span class="menu-text"> Data Transaksi </span>
@@ -29,7 +28,7 @@ if (isset($_GET['menu'])) {
             <b class="arrow"></b>
         </li>
 
-        <li <?php echo ($menu_active == 'proses_apriori') ? "class='active'" : ""; ?>  >
+        <li <?php echo ($menu_active == 'proses_apriori') ? "class='active'" : ""; ?>>
             <a href="index.php?menu=proses_apriori">
                 <i class="menu-icon fa fa-bolt"></i>
                 <span class="menu-text"> Proses Apriori </span>
@@ -37,7 +36,7 @@ if (isset($_GET['menu'])) {
             <b class="arrow"></b>
         </li>
 
-        <li <?php echo ($menu_active == 'hasil') ? "class='active'" : ""; ?>  >
+        <li <?php echo ($menu_active == 'hasil') ? "class='active'" : ""; ?>>
             <a href="index.php?menu=hasil">
                 <i class="menu-icon fa fa-book"></i>
                 <span class="menu-text"> Hasil </span>
@@ -57,8 +56,7 @@ if (isset($_GET['menu'])) {
     </ul><!-- /.nav-list -->
 
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" 
-           data-icon1="ace-icon fa fa-angle-double-left" 
-           data-icon2="ace-icon fa fa-angle-double-right"></i>
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
+            data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
 </div>

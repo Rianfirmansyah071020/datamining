@@ -16,7 +16,7 @@ include_once "mining.php";
                     Hasil
                 </h1>
             </div><!-- /.page-header -->
-<?php
+            <?php
 //object database class
 $db_object = new database();
 
@@ -36,18 +36,18 @@ $query=$db_object->db_query($sql);
 $jumlah=$db_object->db_num_rows($query);
 ?>
 
-<div class="row">
-    <div class="col-sm-12">
-        <div class="widget-box">
-            <div class="widget-body">
-                <div class="widget-main">
-<!--            <form method="post" action="">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="widget-box">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <!--            <form method="post" action="">
                 <div class="form-group">
                     <input name="submit" type="submit" value="Proses" class="btn btn-success">
                 </div>
             </form>-->
 
-            <?php
+                                <?php
             if (!empty($pesan_error)) {
                 display_error($pesan_error);
             }
@@ -62,17 +62,17 @@ $jumlah=$db_object->db_num_rows($query);
             }
             else{
             ?>
-            <table class='table table-bordered table-striped  table-hover'>
-                <tr>
-                <th>No</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Min Support</th>
-                <th>Min Confidence</th>
-                <th></th>
-                <th>Pdf</th>
-                </tr>
-                <?php
+                                <table class='table table-bordered table-striped  table-hover'>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Min Support</th>
+                                        <th>Min Confidence</th>
+                                        <th></th>
+                                        <th>Pdf</th>
+                                    </tr>
+                                    <?php
                     $no=1;
                     while($row=$db_object->db_fetch_array($query)){
 //                        if($no==1){
@@ -92,12 +92,17 @@ $jumlah=$db_object->db_num_rows($query);
                             echo "<td>".$row['min_confidence']."</td>";
                             $view = "<a href='index.php?menu=view_rule&id_process=".$row['id']."'>View rule</a>";
                             echo "<td>".$view."</td>";
-                            echo "<td>";
+                            echo "<td>";                            
                             echo "<a href='export/CLP.php?id_process=".$row['id']."' "
                                     . "class='btn btn-app btn-light btn-xs' target='blank'>
                                     <i class='ace-icon fa fa-print bigger-160'></i>
                                     Print
                                 </a>";
+                            echo "<a href='hapus_hasil.php?id=".$row['id']."' "
+                                . "class='btn btn-app btn-light btn-xs' target='blank'>
+                                <i class='fa-solid fa-trash-can'></i>
+                                hapus
+                            </a>";
                             echo "</td>";
 //                            echo "<td>Jika ".$jika.", Maka ".$maka."</td>";
 //                            echo "<td>".price_format($row['confidence'])."</td>";
@@ -105,12 +110,12 @@ $jumlah=$db_object->db_num_rows($query);
                         $no++;
                     }
                     ?>
-            </table>
-            <?php
+                                </table>
+                                <?php
             }
             ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
