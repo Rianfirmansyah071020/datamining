@@ -7,6 +7,41 @@ if (!isset($_SESSION['apriori_toko_id'])) {
 include_once "database.php";
 include_once "fungsi.php";
 include_once "mining.php";
+
+
+//object database class
+$db_object = new database();
+
+$pesan_error = $pesan_success = "";
+if(isset($_GET['pesan_error'])){
+    $pesan_error = $_GET['pesan_error'];
+}
+if(isset($_GET['pesan_success'])){
+    $pesan_success = $_GET['pesan_success'];
+}
+
+if(isset($_POST['cari'])) {
+
+    $tanggal_awal = $_POST['tanggal_awal'];
+    $tanggal_akhir = $_POST['tanggal_akhir'];
+
+    $sql = "SELECT
+    *
+    FROM
+     process_log WHERE start_date >= '$tanggal_awal' AND end_date <= '$tanggal_akhir'";
+$query=$db_object->db_query($sql);
+$jumlah=$db_object->db_num_rows($query);
+
+
+}else {
+
+    $sql = "SELECT
+        *
+        FROM
+         process_log ";
+$query=$db_object->db_query($sql);
+$jumlah=$db_object->db_num_rows($query);
+}
 ?>
 <div class="main-content">
     <div class="main-content-inner">
@@ -20,40 +55,26 @@ include_once "mining.php";
                         <h4 style="margin-left: 10px;">Filter data berdasarkan tanggal</h4>
                     </div>
                     <div class="row" style="margin-top:10px;">
-                        <div class="col-lg-2 col-xl-2 col-md-3 col-12">
+                        <div class="col-lg-1 col-xl-1 col-md-3 col-12">
                             <label for="">tanggal awal</label>
                         </div>
                         <div class="col-lg-3 col-xl-3 col-md-3 col-12">
-                            <input type="date" name="tanggal_awal" id="tanggal_awal">
+                            <input type="date" name="tanggal_awal" required id="tanggal_awal">
                         </div>
-                        <div class="col-lg-2 col-xl-2 col-md-3 col-12">
+                        <div class="col-lg-1 col-xl-1 col-md-3 col-12">
                             <label for="">tanggal akhir</label>
                         </div>
                         <div class="col-lg-3 col-xl-3 col-md-3 col-12">
-                            <input type="date" name="tanggal_awal" id="tanggal_awal">
+                            <input type="date" name="tanggal_akhir" required id="tanggal_akhir">
                         </div>
+                        <div class="col-lg-3 col-xl-3 col-md-3 col-12">
+                            <button type="submit" name="cari" class="btn btn-success">cari</button>
+                        </div>
+
                     </div>
                 </form>
             </div><!-- /.page-header -->
-            <?php
-//object database class
-$db_object = new database();
 
-$pesan_error = $pesan_success = "";
-if(isset($_GET['pesan_error'])){
-    $pesan_error = $_GET['pesan_error'];
-}
-if(isset($_GET['pesan_success'])){
-    $pesan_success = $_GET['pesan_success'];
-}
-
-$sql = "SELECT
-        *
-        FROM
-         process_log ";
-$query=$db_object->db_query($sql);
-$jumlah=$db_object->db_num_rows($query);
-?>
 
             <div class="row">
                 <div class="col-sm-12">
