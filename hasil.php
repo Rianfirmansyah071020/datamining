@@ -15,6 +15,25 @@ include_once "mining.php";
                 <h1>
                     Hasil
                 </h1>
+                <form action="" method="post">
+                    <div class="row" style="margin-top: 20px;">
+                        <h4 style="margin-left: 10px;">Filter data berdasarkan tanggal</h4>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-2 col-xl-2 col-md-3 col-12">
+                            <label for="">tanggal awal</label>
+                        </div>
+                        <div class="col-lg-3 col-xl-3 col-md-3 col-12">
+                            <input type="date" name="tanggal_awal" id="tanggal_awal">
+                        </div>
+                        <div class="col-lg-2 col-xl-2 col-md-3 col-12">
+                            <label for="">tanggal akhir</label>
+                        </div>
+                        <div class="col-lg-3 col-xl-3 col-md-3 col-12">
+                            <input type="date" name="tanggal_awal" id="tanggal_awal">
+                        </div>
+                    </div>
+                </form>
             </div><!-- /.page-header -->
             <?php
 //object database class
