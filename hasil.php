@@ -67,8 +67,11 @@ $jumlah=$db_object->db_num_rows($query);
                         <div class="col-lg-3 col-xl-3 col-md-3 col-12">
                             <input type="date" name="tanggal_akhir" required id="tanggal_akhir">
                         </div>
-                        <div class="col-lg-3 col-xl-3 col-md-3 col-12">
+                        <div class="col-lg-1 col-xl-1 col-md-1 col-12">
                             <button type="submit" name="cari" class="btn btn-success">cari</button>
+                        </div>
+                        <div class="col-lg-1 col-xl-1 col-md-1 col-12">
+                            <a href="index.php?menu=hasil" class="btn btn-warning">tampilkan semua</a>
                         </div>
 
                     </div>
