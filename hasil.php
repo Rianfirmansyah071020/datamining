@@ -135,12 +135,13 @@ $jumlah=$db_object->db_num_rows($query);
                             echo "<td>".$row['min_confidence']."</td>";
                             $view = "<a href='index.php?menu=view_rule&id_process=".$row['id']."'>View rule</a>";
                             echo "<td>".$view."</td>";
-                            echo "<td>";                            
-                            echo "<a href='export/CLP.php?id_process=".$row['id']."' "
-                                    . "class='btn btn-app btn-light btn-xs' target='blank'>
-                                    <i class='ace-icon fa fa-print bigger-160'></i>
-                                    Print
-                                </a>";
+                            echo "<td>";     ?>
+                                    <a href="export/CLP.php?id_process=<?= $row['id'] ?>&&start_date=<?= $row['start_date'] ?>&&end_date=<?= $row['end_date'] ?>"
+                                        class="btn btn-app btn-light
+                                        btn-xs" target="blank">
+                                        <i class='ace-icon fa fa-print bigger-160'></i>
+                                        Print
+                                    </a> <?php
                             echo "<a href='hapus_hasil.php?id=".$row['id']."' "
                                 . "class='btn btn-app btn-light btn-xs' target='blank'>
                                 <i class='fa-solid fa-trash-can'></i>

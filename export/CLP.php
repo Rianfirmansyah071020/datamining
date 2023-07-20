@@ -3,6 +3,8 @@ include_once "../database.php";
 include_once "../fungsi.php";
 include_once "fpdf16/fpdf.php";
 $id_process = $_REQUEST['id_process'];
+$start_date = $_REQUEST['start_date'];
+$end_date = $_REQUEST['end_date'];
 //object database class
 $db_object = new database();
 
@@ -27,7 +29,7 @@ while ($data = $db_object->db_fetch_array($db_query)) {
 }
 
 //memulai pengaturan output PDF
-class PDF extends FPDF {
+class PDF extends FPDF {    
 
     //untuk pengaturan header halaman
     function Header() {
@@ -41,18 +43,22 @@ class PDF extends FPDF {
         $this->Cell(0, 1, 'Laporan Hasil Penjualan Bengkel Mustofa Motor', '', 0, 'C'); //TBLR (untuk garis)=> B = Bottom,
         $this->Ln();
         $this->Cell(0, 1, 'Jl.padang-painan, Kenagarian Nanggalo, Kec. Koto XI Tarusan, Kab.Pesisir Selatan, 25654', '', 0, 'C');
-        $this->Ln(2);
+        $this->Ln(1);
     }
 
     //untuk pengaturan footer halaman
     function Footer() {
         //Pengaturan posisi
-        $this->SetY(-2);
+        // $this->SetY(-2);
         //Pengaturan font footer
         $this->SetFont('Arial', 'I', 8);
         //Menampilkan teks pada footer
-        $this->Cell(0, 2, 'Tanda Tangan:', 0, 1, 'R');
-        $this->Cell(0, 2, 'Nama Pemilik Bengkel', 0, 1, 'R');
+        $this->Cell(0, 1, 'Tanda Tangan:', 0, 1, 'L');
+        $this->Ln();  
+        $this->Cell(0, 1, 'Nama Pemilik Bengkel', 0, 1, 'L');
+        $this->Cell(0, -1, 'Nama Pimpinan Bengkel', 0, 1, 'R');
+        $this->Ln();
+        $this->Cell(0, -1, 'Tanda Tangan:', 0, 1, 'R');        
     }
 
 }
@@ -62,6 +68,8 @@ $pdf = new PDF('L', 'cm', 'A4');
 $pdf->Open();
 $pdf->AddPage();
 $pdf->SetFont('Times', 'B', 12);
+$pdf->Cell(0, 1, $start_date .' s/d ' . $end_date , '', 0, 'C');
+$pdf->Ln();
 $pdf->Cell(0, 1, 'Laporan Hasil Penjualan', '', 0, 'C');
 $pdf->Ln();
 $pdf->Ln();
