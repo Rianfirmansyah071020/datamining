@@ -61,7 +61,7 @@ $jumlah=$db_object->db_num_rows($query);
                     </div>
                     <div class="row" style="margin-top:10px;">
                         <div class="col-lg-1 col-xl-1 col-md-3 col-12">
-                            <label for="">tanggal Filter</label>
+                            <label for="">Filter</label>
                         </div>
                         <!-- <div class="col-lg-2 col-xl-2 col-md-2 col-12">
                             <input type="date" name="tanggal_awal" required id="tanggal_awal">
@@ -82,7 +82,7 @@ $jumlah=$db_object->db_num_rows($query);
                             <button type="submit" name="cari" class="btn btn-success">cari</button>
                         </div>
                         <div class="col-lg-1 col-xl-1 col-md-1 col-12">
-                            <a href="index.php?menu=hasil" class="btn btn-warning">tampilkan semua</a>
+                            <a href="index.php?menu=hasil" class="btn btn-warning">reset</a>
                         </div>
 
                     </div>
