@@ -3,8 +3,7 @@ include_once "../database.php";
 include_once "../fungsi.php";
 include_once "fpdf16/fpdf.php";
 $id_process = $_REQUEST['id_process'];
-$start_date = $_REQUEST['start_date'];
-$end_date = $_REQUEST['end_date'];
+$nama_pimpinan = $_REQUEST['nama_pimpinan'];
 //object database class
 $db_object = new database();
 
@@ -24,12 +23,17 @@ $i = 0;
 while ($data = $db_object->db_fetch_array($db_query)) {
     $cell[$i][0] = price_format($data['confidence']);
     $cell[$i][1] = "Jika konsumen membeli ".$data['kombinasi1']
-                    .", maka konsumen juga akan membeli ".$data['kombinasi2'] ;
+                    .", maka konsumen juga akan membeli ".$data['kombinasi2'];
+
+    // Adding start date and end date to the $cell array
+    $cell[$i]['start_date'] = $data['start_date'];
+    $cell[$i]['end_date'] = $data['end_date'];
+
     $i++;
 }
 
 //memulai pengaturan output PDF
-class PDF extends FPDF {    
+class PDF extends FPDF {
 
     //untuk pengaturan header halaman
     function Header() {
@@ -40,26 +44,48 @@ class PDF extends FPDF {
         //untuk warna text
         $this->SetTextColor(0, 0, 0);
         //Menampilkan tulisan di halaman
-        $this->Cell(0, 1, 'Laporan Hasil Penjualan Bengkel Mustofa Motor', '', 0, 'C'); //TBLR (untuk garis)=> B = Bottom,
+        $this->Cell(0, 1, ' Bengkel Mustofa Motor', '', 0, 'C'); //TBLR (untuk garis)=> B = Bottom,
         $this->Ln();
         $this->Cell(0, 1, 'Jl.padang-painan, Kenagarian Nanggalo, Kec. Koto XI Tarusan, Kab.Pesisir Selatan, 25654', '', 0, 'C');
-        $this->Ln(1);
+        $this->Ln(2);
     }
 
     //untuk pengaturan footer halaman
-    function Footer() {
-        //Pengaturan posisi
-        // $this->SetY(-2);
-        //Pengaturan font footer
-        $this->SetFont('Arial', 'I', 8);
-        //Menampilkan teks pada footer
-        $this->Cell(0, 1, 'Tanda Tangan:', 0, 1, 'L');
-        $this->Ln();  
-        $this->Cell(0, 1, 'Nama Pemilik Bengkel', 0, 1, 'L');
-        $this->Cell(0, -1, 'Nama Pimpinan Bengkel', 0, 1, 'R');
-        $this->Ln();
-        $this->Cell(0, -1, 'Tanda Tangan:', 0, 1, 'R');        
+    private $isLastPage = false;
+
+    function Footer()
+    {
+        // Posisi bagian bawah halaman
+        $this->SetY(-5);
+    
+        // Pengaturan font footer
+        $this->SetFont('Arial', 'I', 12);
+    
+        // Cek apakah halaman ini merupakan halaman terakhir
+        if ($this->isLastPage) {
+            // Menampilkan tanggal
+            $this->Cell(28, 2, 'Nanggalo, ' . date('d/m/Y'), 0, 1, 'R');
+    
+            // Menampilkan teks "Pimpinan"
+            $this->Cell(27, 2, 'Pimpinan', 0, 0, 'R');
+
+            // Menentukan jarak atas sebelum mencetak teks "(Risman MH)"
+            $this->SetY($this->GetY() + 0.5); // Atur jarak atas di sini, misalnya 0.5
+    
+            // Menampilkan nama "Risman MH"
+            $this->Cell(27, 2, $_REQUEST['nama_pimpinan'], 0, 1, 'R');
+        }
     }
+    
+    function Output($dest = '', $name = '', $isUTF8 = false)
+    {
+        // Menandai halaman terakhir
+        $this->isLastPage = true;
+    
+        // Memanggil fungsi Output dari kelas induk
+        parent::Output($dest, $name, $isUTF8);
+    }
+    
 
 }
 
@@ -68,9 +94,15 @@ $pdf = new PDF('L', 'cm', 'A4');
 $pdf->Open();
 $pdf->AddPage();
 $pdf->SetFont('Times', 'B', 12);
-$pdf->Cell(0, 1, $start_date .' s/d ' . $end_date , '', 0, 'C');
-$pdf->Ln();
 $pdf->Cell(0, 1, 'Laporan Hasil Penjualan', '', 0, 'C');
+$pdf->Ln();
+$j = 0; // Inisialisasi variabel $j sebelum perulangan
+if ($i > 0) { // Memastikan ada data dalam array $cell sebelum mencetak
+    $start_date = $cell[$j]['start_date'];
+    $end_date = $cell[$j]['end_date'];
+    $date_range = 'Periode : ' . $_REQUEST['start_date'] . ' - ' . $_REQUEST['end_date'] ;
+    $pdf->Cell(0, 1, $date_range, '', 0, 'C');
+}
 $pdf->Ln();
 $pdf->Ln();
 $pdf->Cell(1, 1, 'No', 'LRTB', 0, 'C');
